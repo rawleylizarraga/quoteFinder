@@ -9,7 +9,7 @@
         <main>
             <form action="/searchByKeyword">
                 <h4>Keyword:</h4>
-                <input type="text" name="keyword">
+                <input type="text" name="keyword" required>
                 <button>Search by Keyword</button>
             </form>
 
@@ -46,15 +46,17 @@
             <form action="/searchByLikes">
                 <h4>Likes:</h4>
                 Min:
-                <input type="text" name="minLikes" class="numInput">
+                <input type="text" id="minLikes" name="minLikes" class="numInput" value="0" required>
                 Max:
-                <input type="text" name="maxLikes" class="numInput">
-                <button> Search by Likes </button>
+                <input type="text" id="maxLikes" name="maxLikes" class="numInput" value="100" required>
+                <button id="likesBtn"> Search by Likes </button>
             </form>
         </main>
 
         <%- include("partials/footer.ejs") %>
     </div>
+
+    <script src="/js/script.js"></script>
 </body>
 
 </html>

@@ -3,6 +3,7 @@ let authorLinks = document.querySelectorAll("a");
 for (authorLink of authorLinks) {
     authorLink.addEventListener("click", getAuthorInfo);
 }
+document.querySelector("#likesBtn").addEventListener("click", validateLikes);
 
 // variables
 
@@ -27,4 +28,13 @@ async function getAuthorInfo() {
     authorInfo.innerHTML += `Profession: ${data[0].profession} <br>`;
     authorInfo.innerHTML += `Country: ${data[0].country} <br><br>`;
     authorInfo.innerHTML += `${data[0].biography} <br>`;
+}
+
+function validateLikes(e) {
+    let minLikes = Number(document.querySelector("#minLikes").value);
+    let maxLikes = Number(document.querySelector("#maxLikes").value);
+
+    if (isNaN(minLikes) || isNaN(maxLikes) || minLikes < 0 || maxLikes < minLikes) {
+        e.preventDefault();
+    }
 }
