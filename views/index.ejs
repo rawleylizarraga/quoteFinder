@@ -1,27 +1,60 @@
 <%- include("partials/header.ejs") %>
 
 <body>
+    <div class="page">
+       <header>
+            <h1> Quote Finder </h1>
+        </header>
 
-    <h1> Quote Finder </h1>
-    <form action="/searchByKeyword">
-        Keyword:
-        <input type="text" name="keyword">
-        <button>Search by Keyword</button>
-    </form>
+        <main>
+            <form action="/searchByKeyword">
+                <h4>Keyword:</h4>
+                <input type="text" name="keyword">
+                <button>Search by Keyword</button>
+            </form>
 
-    <form action="/searchByAuthor">
-        <select name="authorId">
-            <% for (author of authors) { %>
-            <option value="<%= author.authorId %>">
-                <%= author.firstName %> <%= author.lastName %>
-            </option>
-            <% } %>
-        </select>
-        <button> Search by Author </button>
-    </form>
+            <br>
 
+            <form action="/searchByAuthor">
+                <h4>Author:</h4>
+                <select name="authorId">
+                    <% for (let author of authors) { %>
+                    <option value="<%= author.authorId %>">
+                        <%= author.firstName %> <%= author.lastName %>
+                    </option>
+                    <% } %>
+                </select>
+                <button> Search by Author </button>
+            </form>
 
-    <%- include("partials/footer.ejs") %>
+            <br>
+
+            <form action="/searchByCategory">
+                <h4>Category:</h4>
+                <select name="category">
+                    <% for (let category of categories) { %>
+                    <option value="<%= category.category %>">
+                        <%= category.category %>
+                    </option>
+                    <% } %>
+                </select>
+                <button> Search by Category </button>
+            </form>
+
+            <br>
+
+            <form action="/searchByLikes">
+                <h4>Likes:</h4>
+                Min:
+                <input type="text" name="minLikes" class="numInput">
+                Max:
+                <input type="text" name="maxLikes" class="numInput">
+                <button> Search by Likes </button>
+            </form>
+        </main>
+
+        <%- include("partials/footer.ejs") %>
+    </div>
 </body>
 
 </html>

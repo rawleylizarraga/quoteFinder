@@ -21,12 +21,18 @@ const pool = mysql.createPool({
 
 //routes
 app.get('/', async (req, res) => {
-    let sql = `
+    let sqlAuthors = `
     SELECT authorId, firstName, lastName
     FROM q_authors
     ORDER BY lastName`;
-    const [rows] = await pool.query(sql);
-    res.render('index', { "authors": rows });
+    const [rowsAuthors] = await pool.query(sqlAuthors);
+
+    let sqlCategories = `
+    SELECT DISTINCT category
+    FROM q_quotes
+    ORDER BY category`;
+    const [rowsCategories] = await pool.query(sqlCategories);
+    res.render('index', { "authors": rowsAuthors, "categories": rowsCategories });
 });
 
 app.get('/searchByKeyword', async (req, res) => {
@@ -55,6 +61,37 @@ app.get('/searchByAuthor', async (req, res) => {
         WHERE authorId = ?`;
 
     let sqlParams = [userAuthorId];
+
+    const [rows] = await pool.query(sql, sqlParams);
+
+    res.render("results", { "quotes": rows });
+});
+
+app.get('/searchByCategory', async (req, res) => {
+    let userCategory = req.query.category;
+    let sql = `
+        SELECT authorId, firstName, lastName, quote
+        FROM q_quotes
+        NATURAL JOIN q_authors
+        WHERE category = ?`;
+
+    let sqlParams = [userCategory];
+
+    const [rows] = await pool.query(sql, sqlParams);
+
+    res.render("results", { "quotes": rows });
+});
+
+app.get('/searchByLikes', async (req, res) => {
+    let minLikes = req.query.minLikes;
+    let maxLikes = req.query.maxLikes;
+    let sql = `
+        SELECT authorId, firstName, lastName, quote
+        FROM q_quotes
+        NATURAL JOIN q_authors
+        WHERE likes BETWEEN ? AND ?`;
+
+    let sqlParams = [minLikes, maxLikes];
 
     const [rows] = await pool.query(sql, sqlParams);
 
