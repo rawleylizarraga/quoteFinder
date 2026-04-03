@@ -1,9 +1,10 @@
 // event listeners
-let authorLinks = document.querySelectorAll("a");
+let authorLinks = document.querySelectorAll(".authorName");
 for (authorLink of authorLinks) {
     authorLink.addEventListener("click", getAuthorInfo);
 }
 document.querySelector("#likesBtn").addEventListener("click", validateLikes);
+document.querySelector("#backBtn").addEventListener("click", home);
 
 // variables
 
@@ -37,4 +38,8 @@ function validateLikes(e) {
     if (isNaN(minLikes) || isNaN(maxLikes) || minLikes < 0 || maxLikes < minLikes) {
         e.preventDefault();
     }
+}
+
+function home() {
+
 }

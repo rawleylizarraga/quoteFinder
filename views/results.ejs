@@ -11,7 +11,7 @@
             <% for (i of quotes) { %>
                 <div class="quote">
                     <%= i.quote %> <br>
-                    -<em>   <a href="#" id="<%= i.authorId %>">
+                    -<em>   <a href="#" id="<%= i.authorId %>" class="authorName">
                             <%= i.firstName %> <%= i.lastName %> 
                             </a>
                     </em> 
@@ -42,6 +42,12 @@
                     </div>
                 </div>
             </div>
+
+            <a href="/">
+                <button>Return</button>
+            </a>
+
+            <br><br>
         </main>
 
 
